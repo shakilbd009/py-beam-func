@@ -14,14 +14,13 @@ def add_compute_engine_name(ele:dict):
                 return ele
 
 
-# def my_beam_func(request:flask.Request,context):
-
-def my_beam_func(request:flask.Request):
-    #pubsub_message = base64.b64decode(request['data']).decode('utf-8')
-    pubsub_message = request.get_json(force=True)
-    #data           = json.loads(pubsub_message)
-    data           = add_compute_engine_name(pubsub_message)
-    #data           = add_compute_engine_name(data)
+def my_beam_func(request:flask.Request,context):
+#def my_beam_func(request:flask.Request):
+    pubsub_message = base64.b64decode(request['data']).decode('utf-8')
+    #pubsub_message = request.get_json(force=True)
+    data           = json.loads(pubsub_message)
+    #data           = add_compute_engine_name(pubsub_message)
+    data           = add_compute_engine_name(data)
     try:
         beam.filter_pipe(data)
     except:
